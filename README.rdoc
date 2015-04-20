@@ -1,0 +1,5 @@
+== README
+
+A facebook clone which serves as the final project for the Rails section of The Odin Project.
+
+Visit http://www.theodinproject.com/ruby-on-rails/final-project for more details.
