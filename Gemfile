@@ -9,6 +9,8 @@ gem 'pg'
 gem 'figaro'
 # Add rails_12factor for deployment to Heroku
 gem 'rails_12factor', group: :production
+# Add Devise for authentication
+gem 'devise'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
