@@ -6,6 +6,11 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  # Redirects current user to their profile page after successful signin.
+  def after_sign_in_path_for(resource)
+    user_path(current_user)
+  end
+
   protected
 
   def configure_permitted_parameters
