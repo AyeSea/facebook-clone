@@ -1,0 +1,20 @@
+<h1>All Clone Book Users</h1>
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Friend Status</th>
+	<tr>
+
+	<% @users.each do |user| %>
+	<tr>
+		<td>
+			<%= link_to "#{user.first_name} #{user.last_name}", user_path(user) %>
+		</td>
+
+		<td>
+			<%= link_to 'Add Friend Button or Status Here', '#' %>
+		</td>
+	</tr>
+	<% end %>
+</table>

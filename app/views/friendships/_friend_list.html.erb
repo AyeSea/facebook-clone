@@ -1,0 +1,23 @@
+<h3>Friends (<%= current_user.active_friendships.to_a.count %>)</h3>
+
+<table>
+
+	<tr>
+		<th>Name
+		</th>
+	</tr>
+<% current_user.requested_active_friendships.each do |friendship| %>
+	<% friend = friendship.friendship_accepter %>
+	<tr>
+		<td><%= link_to "#{friend.first_name} #{friend.last_name}", user_path(friend) %></td>
+	</tr>
+<% end %>
+
+<% current_user.accepted_active_friendships.each do |friendship| %>
+	<% friend = friendship.friendship_requester %>
+	<tr>
+		<td><%= link_to "#{friend.first_name} #{friend.last_name}", user_path(friend) %></td>
+	</tr>
+<% end %>
+
+</table>

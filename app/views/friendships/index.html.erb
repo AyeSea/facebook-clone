@@ -1,0 +1,19 @@
+<h1>Friend Requests (<%= @pending_friendships.count %>)</h1>
+
+<% if @pending_friendships.empty? %>
+	<p>No pending friend requests.</p>
+
+<% else %>
+	<table>
+
+	<% @pending_friendships.each do |friendship| %>
+		<% requester = friendship.friendship_requester %>
+		<tr>
+			<td><%= requester.first_name %> <%= requester.last_name %></td>
+			<td><%= link_to 'Confirm Friend', confirm_path(requester_id: requester) %></td>
+			<td><%= link_to 'Reject Friend', friendship_path(friendship, requester_id: requester), method: :delete %></td>
+		<tr>
+	<% end %>
+	</table>
+
+<% end %>

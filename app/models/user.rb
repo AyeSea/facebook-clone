@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  attr_accessor :friends, :pending_friendships, :active_friendships
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, 
@@ -20,4 +21,24 @@ class User < ActiveRecord::Base
 
   validates :first_name, presence: true
   validates :last_name, presence: true
+
+  def friends
+   @friends ||= self.friendship_requesters + self.friendship_accepters
+  end
+
+  def pending_friendships
+    @pending_friendships = self.accepting_friendships.where('established = ?', false)
+  end
+
+  def active_friendships
+    @active_friendships = requested_active_friendships + accepted_active_friendships
+  end
+
+  def requested_active_friendships
+    self.requesting_friendships.where('established = ?', true)
+  end
+
+  def accepted_active_friendships
+    self.accepting_friendships.where('established = ?', true)
+  end
 end
