@@ -1,0 +1,28 @@
+<% unless current_user == @user %>
+	<% request_sent = Friendship.requesting(current_user, @user) %>
+	<% request_received = Friendship.accepting(current_user, @user) %>
+
+	<% if request_sent %>
+
+		<% if request_sent.established? %>
+			Friends since <%= request_sent.updated_at %>
+		<% else %>
+		  Pending Friendship Acceptance
+		<% end %>
+
+	<% elsif request_received %>
+
+		<% if request_received.established? %>
+			Friends since <%= request_received.updated_at %>
+		<% else %>
+			<%= link_to 'Confirm Friend', confirm_path(requester_id: @user) %>
+			<%= link_to 'Reject Friend', friendship_path(requester_id: @user), method: :delete %>
+		<% end %>
+
+	<% else %>
+
+		<%= link_to 'Add Friend', friendships_path(accepter_id: @user), method: :post %>
+
+	<% end %>
+
+<% end %>

@@ -10,13 +10,13 @@ class User < ActiveRecord::Base
   #we are searching for friends for which we accepted their friendships, i.e where those
   #friends were the friendship requesters).
 
-  has_many :requested_friendships, class_name: "Friendship",
+  has_many :requesting_friendships, class_name: "Friendship",
   																 foreign_key: :friendship_requester_id
-  has_many :accepted_friendships, class_name: "Friendship",
+  has_many :accepting_friendships, class_name: "Friendship",
   																foreign_key: :friendship_accepter_id
 
-  has_many :friendship_requesters, through: :accepted_friendships
-  has_many :friendship_accepters, through: :requested_friendships
+  has_many :friendship_requesters, through: :accepting_friendships
+  has_many :friendship_accepters, through: :requesting_friendships
 
   validates :first_name, presence: true
   validates :last_name, presence: true
