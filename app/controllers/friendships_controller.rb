@@ -30,7 +30,14 @@ class FriendshipsController < ApplicationController
 		@friendship = current_user.accepting_friendships.find_by(friendship_requester_id: params[:friend_id]) ||
 								  current_user.requesting_friendships.find_by(friendship_accepter_id: params[:friend_id])
 		@friend = User.find(params[:friend_id])
-		@friendship.destroy
+		
+		# Prevent users from removing other users' friends.
+		if @friendship.nil?
+			flash[:error] = "You can't remove other users' friends!"
+			redirect_to root_path
+		else
+			@friendship.destroy
+		end
 
 		if @friendship.established?
 			flash[:success] = "Removed #{@friend.first_name} #{@friend.last_name} from friends!"

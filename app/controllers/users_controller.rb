@@ -10,5 +10,7 @@ class UsersController < ApplicationController
 		else
 			@user = User.find(params[:id])
 		end
+
+		@posts = @user.posts
 	end
 end

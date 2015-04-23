@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
   has_many :friendship_requesters, through: :accepting_friendships
   has_many :friendship_accepters, through: :requesting_friendships
 
+  has_many :posts
+
   validates :first_name, presence: true
   validates :last_name, presence: true
 

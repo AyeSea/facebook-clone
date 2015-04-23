@@ -1,0 +1,8 @@
+<h1>Write a New Post</h1>
+
+<%= form_for([@user, @post]) do |f| %>
+	<%= f.text_area :content, size:"50x10" %>
+	<br>
+	<%= f.submit "Post It!" %>
+	<%= f.hidden_field :id, value: params[:user_id] %>
+<% end %>

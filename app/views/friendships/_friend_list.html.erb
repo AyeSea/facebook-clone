@@ -10,7 +10,10 @@
 	<% friend = friendship.friendship_accepter %>
 	<tr>
 		<td><%= link_to "#{friend.first_name} #{friend.last_name}", user_path(friend) %></td>
+
+		<% if current_user == @user %>
 		<td><%= link_to 'Remove Friend', friendship_path(friendship, friend_id: friend.id), method: :delete %></td>
+		<% end %>
 	</tr>
 <% end %>
 
@@ -18,7 +21,9 @@
 	<% friend = friendship.friendship_requester %>
 	<tr>
 		<td><%= link_to "#{friend.first_name} #{friend.last_name}", user_path(friend) %></td>
+		<% if current_user == @user %>
 		<td><%= link_to 'Remove Friend', friendship_path(friendship, friend_id: friend.id), method: :delete %></td>
+		<% end %>
 	</tr>
 <% end %>
 
