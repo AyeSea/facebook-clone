@@ -27,10 +27,17 @@ class FriendshipsController < ApplicationController
 	end
 
 	def destroy
-		@friendship = current_user.accepting_friendships.find_by(friendship_requester_id: params[:requester_id])
-		@friend = User.find(params[:requester_id])
+		@friendship = current_user.accepting_friendships.find_by(friendship_requester_id: params[:friend_id]) ||
+								  current_user.requesting_friendships.find_by(friendship_accepter_id: params[:friend_id])
+		@friend = User.find(params[:friend_id])
 		@friendship.destroy
-		flash[:success] = "Rejected request from #{@friend.first_name} #{@friend.last_name}!"
-		redirect_to @friend
+
+		if @friendship.established?
+			flash[:success] = "Removed #{@friend.first_name} #{@friend.last_name} from friends!"
+		else
+			flash[:success] = "Rejected request from #{@friend.first_name} #{@friend.last_name}!"
+		end
+
+		redirect_to current_user
 	end
 end

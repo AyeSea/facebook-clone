@@ -15,8 +15,8 @@
 		<% if request_received.established? %>
 			Friends since <%= request_received.updated_at %>
 		<% else %>
-			<%= link_to 'Confirm Friend', confirm_path(requester_id: @user) %>
-			<%= link_to 'Reject Friend', friendship_path(requester_id: @user), method: :delete %>
+			<%= link_to 'Confirm Friend', confirm_path(friend_id: @user) %>
+			<%= link_to 'Reject Friend', friendship_path(friend_id: @user), method: :delete %>
 		<% end %>
 
 	<% else %>
