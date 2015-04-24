@@ -10,8 +10,19 @@
 		Created at <%= post.created_at %>
 		<% if current_user == User.find_by(id: params[:id]) %>
 		<%= link_to 'Delete', user_post_path(current_user, post), method: :delete %>
+		<% end %>
 		<br>
 		<%= pluralize(post.likes.count, 'like') %>
+
+		<!--Add conditional to hide link if current user has already liked the post, and 
+		add link to unlike liked post-->
+		<% unless post.likes.find_by(user_id: current_user.id) %>
+		<br>
+		<%= link_to 'like', likes_path(post, post_id: post.id), method: :post %>
+		<% else %>
+		<br>
+		<%= link_to 'unlike', like_path(post, post_id: post.id), method: :delete %>
 		<% end %>
+
 	</p>
 <% end %>
