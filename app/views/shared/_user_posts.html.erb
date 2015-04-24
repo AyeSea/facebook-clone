@@ -10,6 +10,8 @@
 		Created at <%= post.created_at %>
 		<% if current_user == User.find_by(id: params[:id]) %>
 		<%= link_to 'Delete', user_post_path(current_user, post), method: :delete %>
+		<br>
+		<%= pluralize(post.likes.count, 'like') %>
 		<% end %>
 	</p>
 <% end %>
