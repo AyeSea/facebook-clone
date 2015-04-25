@@ -23,6 +23,8 @@
 		<br>
 		<%= link_to 'unlike', like_path(post, post_id: post.id), method: :delete %>
 		<% end %>
+		<br>
+		<%= link_to 'comments', comments_path(post_id: post.id) %>
 
 	</p>
 <% end %>

@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
 
   has_many :posts
   has_many :likes
+  has_many :comments, foreign_key: :commenter_id
 
   validates :first_name, presence: true
   validates :last_name, presence: true

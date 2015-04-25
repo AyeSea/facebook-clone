@@ -1,0 +1,21 @@
+<h1>Comments</h1>
+<h3>Post:</h3>
+<p><%= @post.user.first_name %> <%= @post.user.last_name %><p>
+<p><%= @post.content %></p>
+<p><%= @post.created_at %></p>
+
+<h3>Comments:</h3>
+	<ul>
+	<% @comments.each do |comment| %>
+		<li>Author: <%= comment.commenter.first_name %> <%= comment.commenter.last_name %></li>
+		<li>Comment: <%= comment.content %></li>
+		<li>At: <%= comment.created_at %></li>
+
+		<% if current_user == comment.commenter %>
+		<%= link_to 'remove comment', comment_path(comment), method: :delete %>
+		<% end %>
+		<br>
+	<% end %>
+	</ul>
+
+<%= render 'comments/new_comment' %>
