@@ -4,6 +4,7 @@
 	<%= link_to 'My Profile', user_path(current_user) %>
 	<!--Edit to include other, non-friend-request notifications later on.!-->
 	<%= link_to 'Notifications', friendships_path %>
+	<%= link_to 'My Timeline', user_posts_path(current_user) %>
 <% else %>
 	<%= link_to "Sign In", new_user_session_path %>
 	<%= link_to "Sign Up", new_user_registration_path %>

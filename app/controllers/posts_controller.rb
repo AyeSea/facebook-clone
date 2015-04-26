@@ -1,6 +1,11 @@
 class PostsController < ApplicationController
 	before_action :identify_user, only: [:index, :new, :create, :destroy]
 
+	def index
+		#Display all posts for yourself and for your friends (chronological order).
+		#@posts = Post
+	end
+
 	def new
 		@post = @user.posts.build
 	end

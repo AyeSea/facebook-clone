@@ -14,14 +14,14 @@ class CommentsController < ApplicationController
 			flash[:error] = 'Something went wrong! Comment was not added!'
 		end
 
-		redirect_to comments_path(post_id: params[:comment][:post_id])
+		redirect_to user_path(@post.user)
 	end
 
 	def destroy
 		@comment = Comment.find(params[:id])
 		@comment.destroy
 		flash[:success] = 'Comment removed!'
-		redirect_to comments_path(post_id: @comment.post)
+		redirect_to user_path(@comment.post.user)
 	end
 
 	private
