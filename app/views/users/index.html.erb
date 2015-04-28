@@ -15,6 +15,12 @@
 		<td>
 			<%= link_to 'Add Friend Button or Status Here', '#' %>
 		</td>
+
+		<td>
+			<% if current_user == user %>
+			<%= link_to 'Close Account', user_path(user), method: :delete %>
+			<% end %>
+		</td>
 	</tr>
 	<% end %>
 </table>

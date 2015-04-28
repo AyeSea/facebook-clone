@@ -10,18 +10,20 @@ class User < ActiveRecord::Base
   #the users identified by the friendship_requester_id column (ex. for user Homer Simpson,
   #we are searching for friends for which we accepted their friendships, i.e where those
   #friends were the friendship requesters).
+  before_destroy :destroy_friendships
 
   has_many :requesting_friendships, class_name: "Friendship",
   																 foreign_key: :friendship_requester_id
+
   has_many :accepting_friendships, class_name: "Friendship",
   																foreign_key: :friendship_accepter_id
 
   has_many :friendship_requesters, through: :accepting_friendships
   has_many :friendship_accepters, through: :requesting_friendships
 
-  has_many :posts
-  has_many :likes
-  has_many :comments, foreign_key: :commenter_id
+  has_many :posts, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :comments, foreign_key: :commenter_id, dependent: :destroy
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -44,5 +46,11 @@ class User < ActiveRecord::Base
 
   def accepted_active_friendships
     self.accepting_friendships.where('established = ?', true)
+  end
+
+  private
+  def destroy_friendships
+    self.requesting_friendships.destroy_all
+    self.accepting_friendships.destroy_all
   end
 end
