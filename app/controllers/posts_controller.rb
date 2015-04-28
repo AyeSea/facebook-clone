@@ -3,7 +3,8 @@ class PostsController < ApplicationController
 
 	def index
 		#Display all posts for yourself and for your friends (chronological order).
-		#@posts = Post
+		@friends = current_user.friends
+		@users = @friends << current_user
 	end
 
 	def new

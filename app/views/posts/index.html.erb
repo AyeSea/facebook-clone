@@ -1,2 +1,49 @@
 <h1>Timeline</h1>
 
+<% @users.each do |user| %>
+
+<!--render partial for below. share w/ _user_posts!-->
+	<% user.posts.each do |post| %>
+		<p>
+			<%= post.user.first_name %> <%=post.user.last_name %>
+			<br>
+			<%= post.content %>
+			<br>
+			Created at <%= post.created_at %>
+			<% if current_user == User.find_by(id: params[:id]) %>
+			<%= link_to 'Delete', user_post_path(current_user, post), method: :delete %>
+			<% end %>
+			<br>
+			<%= pluralize(post.likes.count, 'like') %>
+
+			<!--Add conditional to hide link if current user has already liked the post, and 
+			add link to unlike liked post-->
+			<% unless post.likes.find_by(user_id: current_user.id) %>
+			<br>
+			<%= link_to 'like', likes_path(post, post_id: post.id), method: :post %>
+			<% else %>
+			<br>
+			<%= link_to 'unlike', like_path(post, post_id: post.id), method: :delete %>
+			<% end %>
+			<br>
+
+			<h4>Comments:</h4>
+				<ul>
+				<% post.comments.each do |comment| %>
+					<li>Author: <%= comment.commenter.first_name %> <%= comment.commenter.last_name %></li>
+					<li>Comment: <%= comment.content %></li>
+					<li>At: <%= comment.created_at %></li>
+
+					<% if current_user == comment.commenter %>
+					<%= link_to 'remove comment', comment_path(comment), method: :delete %>
+					<% end %>
+					<br>
+				<% end %>
+				</ul>
+
+			<%= render partial: 'comments/new_comment', locals: { post_id: post.id, comment: post.comments.build } %>
+
+		</p>
+	<% end %>
+
+<% end %>
