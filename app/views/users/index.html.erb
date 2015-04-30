@@ -13,7 +13,9 @@
 		</td>
 
 		<td>
-			<%= link_to 'Add Friend Button or Status Here', '#' %>
+			<% unless user == current_user || current_user.friends.include?(user) %>
+			<%= link_to 'Add Friend', user.requesting_friendships.create(friendship_accepter: user) %>
+			<% end %>
 		</td>
 
 		<td>
