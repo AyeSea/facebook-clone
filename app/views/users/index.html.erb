@@ -1,14 +1,10 @@
 <h1>All Clone Book Users</h1>
 
 <table>
-	<tr>
-		<th>Name</th>
-		<th>Friend Status</th>
-	<tr>
-
 	<% @users.each do |user| %>
 	<tr>
 		<td>
+			<%= link_to gravatar_for(user), user_path(user) %>
 			<%= link_to "#{user.first_name} #{user.last_name}", user_path(user) %>
 		</td>
 
